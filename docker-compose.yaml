@@ -1,0 +1,102 @@
+
+  version: '3'
+# service-configuration-reference
+  services:
+    # adminer
+      adminer:
+        depends_on:
+          - postgres
+        image: adminer:latest
+        networks:
+          postgres:
+    # mongo
+      mongo:
+        image: mongo:latest
+        networks:
+          mongo:
+        restart: always
+        volumes:
+          - mongo:/data/db
+    # mongo-express
+      mongo-express:
+        depends_on:
+          - mongo
+        image: mongo-express:latest
+        networks:
+          mongo:
+        restart: always
+    # nginx
+      nginx:
+        depends_on:
+          - adminer
+          - mongo
+          - mongo-express
+          - postgres
+          - redis
+          - service
+        image: nginx:alpine
+        networks:
+          adminer:
+          mongo:
+          nginx:
+            ipv4_address: 192.168.144.120
+          postgres:
+          redis:
+          service:
+        restart: always
+        volumes:
+          - ./nginx/nginx.conf:/etc/nginx/nginx.conf:cached
+    # postgres
+      postgres:
+        image: postgres:alpine
+        networks:
+          postgres:
+        restart: always
+        volumes:
+          - postgres:/var/lib/postgresql/data/
+    # redis
+      redis:
+        image: redis:alpine
+        networks:
+          redis:
+        restart: always
+        volumes:
+          - redis:/data/
+    # service
+      service:
+        build: service
+        command: python main.py
+        depends_on:
+          - mongo
+          - postgres
+          - redis
+        image: service
+        networks:
+          mongo:
+          postgres:
+          redis:
+          service:
+        restart: always
+        volumes:
+          - ./service/:/volume/:cached
+# network-configuration-reference
+  networks:
+    adminer:
+      internal: true
+    mongo:
+      internal: true
+    nginx:
+      ipam:
+        config:
+          - subnet: 192.168.144.0/24
+    postgres:
+      internal: true
+    redis:
+      internal: true
+    service:
+      internal: true
+# volume-configuration-reference
+  volumes:
+    mongo:
+    postgres:
+    redis:

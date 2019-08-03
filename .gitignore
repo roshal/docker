@@ -1,0 +1,13 @@
+
+/*
+
+__pycache__/
+
+!/nginx/
+!/notes/
+!/service/
+
+!/.editorconfig
+!/.gitignore
+
+!/docker-compose.yaml

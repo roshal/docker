@@ -1,0 +1,16 @@
+
+aiohttp
+asyncio
+celery
+faker
+flake8
+flask
+funcy
+ipdb
+ipython
+numpy
+psycopg2
+pymongo
+pytest
+redis
+requests

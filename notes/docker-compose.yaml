@@ -1,0 +1,35 @@
+
+  version: '3'
+# service-configuration-reference
+  services:
+    # redis
+      redis:
+        image: redis:alpine
+        networks:
+          redis:
+        restart: always
+        volumes:
+          - redis:/data/
+    # service
+      service:
+        build: service
+        command: python main.py
+        depends_on:
+          - redis
+        image: service
+        networks:
+          redis:
+        restart: always
+        volumes:
+          - ./service/:/volume/:cached
+# network-configuration-reference
+  networks:
+    redis:
+      internal: true
+    service:
+      ipam:
+        config:
+          - subnet: 192.168.144.0/24
+# volume-configuration-reference
+  volumes:
+    redis:

@@ -1,0 +1,6 @@
+
+aiohttp
+flask
+psycopg2
+pymongo
+redis
