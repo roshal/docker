@@ -2,7 +2,6 @@
 import aiohttp as p__aiohttp
 import asyncio as p__asyncio
 
-
 async def fetch(session, url):
 	async with session.get(url) as response:
 		return await response.text()

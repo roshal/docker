@@ -16,7 +16,7 @@
           mongo:
         restart: always
         volumes:
-          - mongo:/data/db
+          - mongo:/data/db/
     # mongo-express
       mongo-express:
         depends_on:
@@ -39,7 +39,7 @@
           adminer:
           mongo:
           nginx:
-            ipv4_address: 192.168.144.120
+            ipv4_address: 192.208.224.248
           postgres:
           redis:
           service:
@@ -61,7 +61,7 @@
           redis:
         restart: always
         volumes:
-          - redis:/data/
+          - redis:/data
     # service
       service:
         build: service
@@ -88,7 +88,7 @@
     nginx:
       ipam:
         config:
-          - subnet: 192.168.144.0/24
+          - subnet: 192.208.224.240/28
     postgres:
       internal: true
     redis:

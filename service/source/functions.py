@@ -1,3 +1,3 @@
 
-def join(*strings):
+def join(*strings: [str]):
 	return ' '.join(strings)

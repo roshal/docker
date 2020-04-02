@@ -1,7 +1,5 @@
 
 import flask as p__flask
-import time as p__time
-
 
 def handle():
 	value = 'hello'

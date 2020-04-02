@@ -8,7 +8,6 @@ from . import mongo as m__mongo
 from . import postgres as m__postgres
 from . import redis as m__redis
 
-
 async def handle(request: p__web.Request) -> p__web.Response:
 	value = 'hello'
 	return p__web.Response(
